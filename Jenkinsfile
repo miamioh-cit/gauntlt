@@ -52,10 +52,20 @@ pipeline {
         stage('Build Gauntlt Image') {
             steps {
                 script {
-                    docker.build("gauntlet-docker", "-f Dockerfile.gauntlt .")
+                    docker.build("gauntlt-docker", "-f Dockerfile.gauntlt .")
                 }
             }
         }   
+
+        stage('Push Gauntlt Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
+                        docker.image("gauntlt-docker").push()
+                    }
+                }
+            }
+        }
         
         stage('Check Kubernetes Cluster') {
             steps {
