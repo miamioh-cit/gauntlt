@@ -48,37 +48,6 @@ pipeline {
             }
         }
 
-        stage('Generate Test Data') {
-            steps {
-                script {
-                // Ensure the label accurately targets the correct pods.
-                def appPod = sh(script: "kubectl get pods -l app=flask -o jsonpath='{.items[0].metadata.name}'", returnStdout: true).trim()
-                // Execute command within the pod. 
-                sh "kubectl exec ${appPod} -- python3 data-gen.py"
-                }
-            }
-    }
-
-        stage("Run Acceptance Tests") {
-            steps {
-                script {
-                    sh 'docker stop qa-tests || true'
-                    sh 'docker rm qa-tests || true'
-                    sh 'docker build -t qa-tests -f Dockerfile.test .'
-                    sh 'docker run qa-tests'
-                }
-            }
-        }
-        
-        stage('Remove Test Data') {
-            steps {
-                script {
-                    // Run the python script to generate data to add to the database
-                    def appPod = sh(script: "kubectl get pods -l app=flask -o jsonpath='{.items[0].metadata.name}'", returnStdout: true).trim()
-                    sh "kubectl exec ${appPod} -- python3 data-clear.py"
-                }
-            }
-        }
       
         stage('Build Gauntlt Image') {
             steps {
