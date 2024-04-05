@@ -42,8 +42,8 @@ pipeline {
                     // This sets up the Kubernetes configuration using the specified KUBECONFIG
                     def kubeConfig = readFile(KUBECONFIG)
                     // This updates the deployment-dev.yaml to use the new image tag
-                    sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' deployment.yaml"
-                    sh "kubectl apply -f deployment.yaml"
+                    sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' gauntlt-deployment.yaml"
+                    sh "kubectl apply -f gauntlt-deployment.yaml"
                 }
             }
         }
