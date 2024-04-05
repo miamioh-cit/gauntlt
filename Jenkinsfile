@@ -52,7 +52,7 @@ pipeline {
         stage('Build Gauntlt Image') {
             steps {
                 script {
-                    docker.build("gauntlet-docker", "-f Dockerfile.gauntlet .")
+                    docker.build("gauntlet-docker", "-f Dockerfile.gauntlt .")
                 }
             }
         }   
