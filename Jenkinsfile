@@ -61,7 +61,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
-                        docker.image("gauntlt-docker").push()
+                        docker.image("cithit/gauntlt-docker").push()
                     }
                 }
             }
