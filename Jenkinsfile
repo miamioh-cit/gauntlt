@@ -27,14 +27,21 @@ pipeline {
         }   
 
         stage('Push Gauntlt Image') {
-              steps {
+            steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
-                        docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").push()
-                    }
-                }
+                // Push the image with the specific build tag
+                    docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").push()
+                
+                // Additionally, tag the image with 'latest' and push
+                    def builtImage = docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}")
+                        builtImage.tag('latest')
+                        builtImage.push('latest')
             }
         }
+    }
+}
+   }
 
         stage('Deploy Gauntlet') {
             steps {
