@@ -39,9 +39,6 @@ pipeline {
                         builtImage.push('latest')
             }
         }
-    }
-}
-   }
 
         stage('Deploy Gauntlet') {
             steps {
