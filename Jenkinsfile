@@ -38,6 +38,7 @@ pipeline {
                         builtImage.tag('latest')
                         builtImage.push('latest')
                     }
+                }
             }
         }
         stage('Deploy Gauntlet') {
