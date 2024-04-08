@@ -29,7 +29,7 @@ RUN apt-get update && \
 
 # Install Gauntlt
 RUN gem install nokogiri -v 1.15.6
-RUN gem install optomist
+RUN gem install optimist
 RUN gem install rake
 RUN gem install ffi -v 1.9.18
 RUN gem install gauntlt
