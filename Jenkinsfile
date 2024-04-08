@@ -44,6 +44,7 @@ pipeline {
                     // This updates the deployment-dev.yaml to use the new image tag
                     sh "sed -i 's|${DOCKER_IMAGE}:latest|${DOCKER_IMAGE}:${IMAGE_TAG}|' gauntlt-deployment.yaml"
                     sh "kubectl apply -f gauntlt-deployment.yaml"
+                    echo "Current IMAGE_TAG: ${IMAGE_TAG}"
                 }
             }
         }
